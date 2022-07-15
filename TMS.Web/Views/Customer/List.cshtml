@@ -1,0 +1,73 @@
+﻿@*@model IEnumerable<TMS.Models.CustomerResponse>
+
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Customer List</h1>
+<div class="card card-primary card-outline">
+    <div class="card-body">
+        <p style="float:right;">
+            <a asp-action="Create">Create New</a>
+        </p>
+        <div class="table-responsive">
+            <table class="table table-bordered" id="customerDataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FirstName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.LastName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PanNo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MobileNo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CustomerCode)
+                        </th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PanNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MobileNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CustomerCode)
+                            </td>
+                            <td>                                                               
+                                <a title="Edit" href="@Url.Action("Edit","Customer",new { id = item.CustomerId})"><i class="fas fa-edit"></i></a>
+                                <a title="Delete" href="@Url.Action("Delete","Customer",new { id = item.CustomerId})"><i class="fas fa-trash"></i></a>
+                                <a title="Upload" href="@Url.Action("Upload","Customer",new { id = item.CustomerId})"><i class="fas fa-file-upload"></i></a>
+                                <a title="Manage Document" href="@Url.Action("DeleteDocument","Customer",new { id = item.CustomerId})"><i class="fas fa-tasks"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="~/vendor/jquery/jquery.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#customerDataTable').DataTable({});
+    });
+</script>*@

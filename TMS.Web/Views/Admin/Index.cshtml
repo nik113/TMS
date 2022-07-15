@@ -1,0 +1,102 @@
+﻿@model IEnumerable<TMS.Models.AdminLoginResponse>
+
+@{
+    ViewData["Title"] = "CA";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>CA</h1>
+<div class="card card-primary card-outline">
+    <div class="card-body">
+        <p style="float:right;">
+            <a asp-action="Create">Create New</a>
+        </p>
+        <div class="table-responsive">
+            <table class="table table-bordered" id="adminDataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CompanyName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.UserName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MobileNo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CreatedDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.City)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IsMasterAdmin)
+                        </th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CompanyName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MobileNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatedDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.City)
+                            </td>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value=""
+                                           id="flexIsMasterAdminCheckChecked" checked="@item.IsMasterAdmin">
+                                    <label class="form-check-label" for="flexIsMasterAdminCheckChecked">
+                                    </label>
+                                </div>
+                            </td>
+                            <td>
+                                <a title="Edit" href="@Url.Action("Edit","Admin",new { id = item.AdminId})"><i class="fas fa-edit"></i></a>
+                                @*@Html.ActionLink("Edit", "Edit", new { id = item.AdminId }) |*@
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input"
+                                           onclick="toggleAdmin(@item.AdminId)"
+                                           id="@item.AdminId" checked="@item.IsActive">
+                                    <label class="custom-control-label" for="@item.AdminId"></label>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="~/vendor/jquery/jquery.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#adminDataTable').DataTable({});
+    });
+    function toggleAdmin(adminId) {
+        $.ajax({
+            type: "GET",
+            url: '/Admin/ToggleAdmin',
+            data: { adminId: adminId, status: $("#" + adminId).is(':checked') },
+            success: function (data) {
+            }
+        });
+    }
+</script>

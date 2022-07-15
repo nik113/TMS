@@ -1,0 +1,195 @@
+﻿@model TMS.Models.AdminLoginResponse
+@{
+    ViewData["Title"] = "Update Admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Update Admin</h1>
+@using (Html.BeginForm())
+{
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <input type="hidden" asp-for="AdminId" id="hdnAdminId" />
+            <input type="text" asp-for="Name" maxlength="200"
+                   class="form-control form-control-user"
+                   id="txtName" placeholder="Enter Name">
+            <span class="tx-danger" id="error-txtName" style="display:none;"></span>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <input type="text" asp-for="MobileNo" maxlength="20"
+                   class="form-control form-control-user"
+                   id="txtMobileNo" placeholder="Enter MobileNo">
+            <span class="tx-danger" id="error-txtMobileNo" style="display:none;"></span>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <input type="text" asp-for="UserName" maxlength="100"
+                   class="form-control form-control-user"
+                   id="txtUserName" placeholder="Enter UserName">
+            <span class="tx-danger" id="error-txtUserName" style="display:none;"></span>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            @Html.PasswordFor(x => x.Password, new
+            {
+                @class = "form-control form-control-user",
+               @id = "txtPassword",
+                @placeholder = "Enter Password",
+                @maxlength = "100",
+               @value = Model.Password
+            })
+            @*<input type="password" asp-for="Password" maxlength="100"
+                class="form-control form-control-user"
+                id="txtPassword" placeholder="Enter Password">*@
+            <span class="tx-danger" id="error-txtPassword" style="display:none;"></span>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <input type="text" asp-for="City" maxlength="100"
+                   class="form-control form-control-user"
+                   id="txtCity" placeholder="Enter City">
+            <span class="tx-danger" id="error-txtCity" style="display:none;"></span>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <input type="text" asp-for="CompanyName" maxlength="100"
+                   class="form-control form-control-user"
+                   id="txtCompanyName" placeholder="Enter CompanyName">
+            <span class="tx-danger" id="error-txtCompanyName" style="display:none;"></span>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <input type="text" asp-for="Address" maxlength="500"
+                   class="form-control form-control-user"
+                   id="txtAddress" placeholder="Enter Address">
+            <span class="tx-danger" id="error-txtAddress" style="display:none;"></span>
+        </div>
+    </div>
+</div>
+    <div class="row">
+        <div class="col-md-4">
+            <button type="button" id="btnAdd" onclick="jsCreateAdmin()"
+                    class="btn btn-primary btn-user btn-block">
+                Update
+            </button>
+        </div>
+    </div>
+
+}
+<script type="text/javascript">
+    function validate() {
+        var ErrorMessage = "";
+        if ($('#txtName').val().trim() == "") {
+            ErrorMessage = "Please enter name.";
+            $("#error-txtName").text(ErrorMessage);
+            $("#error-txtName").show();
+        }
+        else {
+            $("#error-txtName").text("");
+            $("#error-txtName").hide();
+        }
+        if ($('#txtMobileNo').val().trim() == "") {
+            ErrorMessage = "Please enter mobile no.";
+            $("#error-txtMobileNo").text(ErrorMessage);
+            $("#error-txtMobileNo").show();
+        }
+        //else if ($('txtMobileNo').val().match(phoneno)) {
+        //    ErrorMessage = "Please enter valid mobile no.";
+        //    $("#error-txtMobileNo").text(ErrorMessage);
+        //    $("#error-txtMobileNo").show();
+        //}
+        else {
+            $("#error-txtMobileNo").text("");
+            $("#error-txtMobileNo").hide();
+        }
+        if ($('#txtUserName').val().trim() == "") {
+            ErrorMessage = "Please enter username.";
+            $("#error-txtUserName").text(ErrorMessage);
+            $("#error-txtUserName").show();
+        }
+        else {
+            $("#error-txtUserName").text("");
+            $("#error-txtUserName").hide();
+        }
+        if ($('#txtPassword').val().trim() == "") {
+            ErrorMessage = "Please enter password.";
+            $("#error-txtPassword").text(ErrorMessage);
+            $("#error-txtPassword").show();
+        }
+        else {
+            $("#error-txtPassword").text("");
+            $("#error-txtPassword").hide();
+        }
+        if ($('#txtCity').val().trim() == "") {
+            ErrorMessage = "Please enter city.";
+            $("#error-txtCity").text(ErrorMessage);
+            $("#error-txtCity").show();
+        }
+        else {
+            $("#error-txtCity").text("");
+            $("#error-txtCity").hide();
+        }
+        if ($('#txtCompanyName').val().trim() == "") {
+            ErrorMessage = "Please enter company name.";
+            $("#error-txtCompanyName").text(ErrorMessage);
+            $("#error-txtCompanyName").show();
+        }
+        else {
+            $("#error-txtCompanyName").text("");
+            $("#error-txtCompanyName").hide();
+        }
+
+        if ($('#txtAddress').val().trim() == "") {
+            ErrorMessage = "Please enter address.";
+            $("#error-txtAddress").text(ErrorMessage);
+            $("#error-txtAddress").show();
+        }
+        else {
+            $("#error-txtAddress").text("");
+            $("#error-txtAddress").hide();
+        }
+        if (ErrorMessage == "") {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    function jsCreateAdmin() {
+        if (validate()) {
+            var model = {
+                AdminId: $('#hdnAdminId').val(),
+                Name: $('#txtName').val(),
+                UserName: $('#txtUserName').val(),
+                MobileNo: $('#txtMobileNo').val(),
+                Password: $('#txtPassword').val(),
+                Address: $('#txtAddress').val(),
+                City: $('#txtCity').val(),
+                CompanyName: $('#txtCompanyName').val()
+            }
+            $.ajax({
+                type: "POST",
+                url: '/Admin/Edit',
+                data: { model: model },
+                success: function (data) {
+                    if (data.status) {
+                        window.location.href = data.data.url;
+                    }
+                    else {
+                        $('#msgLabel').html("Error!");
+                        $('#msgText').html(data.msg);
+                        $('#msgmodal').modal('show');
+                    }
+                }
+            })
+        }
+    }
+</script>
