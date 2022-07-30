@@ -52,10 +52,7 @@ namespace TMS.Web.Controllers
                         var claims = new List<Claim>()
                         {
                             new Claim("AdminId",_model.AdminId.ToString()),
-                            new Claim("UserName",_model.UserName.ToString()),
-                            new Claim("Name",_model.Name),
-                            new Claim("IsMasterAdmin",_model.IsMasterAdmin.ToString()),
-                            new Claim("Role",_model.IsMasterAdmin ? "MasterAdmin":"Admin")
+                            new Claim("UserName",_model.UserName.ToString())                            
                         };
                         var identity = new ClaimsIdentity(claims, _model.UserName.ToString());
                         var userPrincipal = new ClaimsPrincipal(new[] { identity });

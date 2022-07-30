@@ -9,4 +9,8 @@
     <ProjectReference Include="..\TMS.Models\TMS.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Scripts\" />
+  </ItemGroup>
+
 </Project>

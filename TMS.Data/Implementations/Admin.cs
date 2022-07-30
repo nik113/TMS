@@ -22,12 +22,10 @@ namespace TMS.Data.Implementations
         }
         public AdminLoginResponse AdminLogin(AdminLoginRequest adminLoginRequest)
         {
-            DynamicParameters para = new DynamicParameters();
-            para.Add("AdminId", adminLoginRequest.AdminId, DbType.Int32);
-            para.Add("Type", adminLoginRequest.Type, DbType.String);
+            DynamicParameters para = new DynamicParameters();            
             para.Add("UserName", adminLoginRequest.UserName, DbType.String);
             para.Add("Password", _crypto.EncryptPassword(adminLoginRequest.Password), DbType.String);
-            var result = _dapper.Get<AdminLoginResponse>("GetAdminMaster", para, CommandType.StoredProcedure);
+            var result = _dapper.Get<AdminLoginResponse>("AdminLogin", para, CommandType.StoredProcedure);
             return result;
         }
         public int AddAdmin(AdminLoginResponse adminLoginResponse)
@@ -35,13 +33,13 @@ namespace TMS.Data.Implementations
             DynamicParameters para = new DynamicParameters();
             para.Add("Type", "_insert", DbType.String);
             para.Add("AdminId", adminLoginResponse.AdminId, DbType.Int32);
-            para.Add("Name", adminLoginResponse.Name, DbType.String);
+            //para.Add("Name", adminLoginResponse.Name, DbType.String);
             para.Add("UserName", adminLoginResponse.UserName, DbType.String);
             para.Add("Password", _crypto.EncryptPassword(adminLoginResponse.Password), DbType.String);
             para.Add("MobileNo", adminLoginResponse.MobileNo, DbType.String);
-            para.Add("City", adminLoginResponse.City, DbType.String);
-            para.Add("Address", adminLoginResponse.Address, DbType.String);
-            para.Add("CompanyName", adminLoginResponse.CompanyName, DbType.String);
+            //para.Add("City", adminLoginResponse.City, DbType.String);
+            //para.Add("Address", adminLoginResponse.Address, DbType.String);
+            //para.Add("CompanyName", adminLoginResponse.CompanyName, DbType.String);
             var result = _dapper.Insert<int>("ManageAdminMaster", para, CommandType.StoredProcedure);
             return result;
         }
@@ -50,13 +48,13 @@ namespace TMS.Data.Implementations
             DynamicParameters para = new DynamicParameters();
             para.Add("Type", "_update", DbType.String);
             para.Add("AdminId", adminLoginResponse.AdminId, DbType.Int32);
-            para.Add("Name", adminLoginResponse.Name, DbType.String);
+            //para.Add("Name", adminLoginResponse.Name, DbType.String);
             para.Add("UserName", adminLoginResponse.UserName, DbType.String);
             para.Add("Password", _crypto.EncryptPassword(adminLoginResponse.Password), DbType.String);
             para.Add("MobileNo", adminLoginResponse.MobileNo, DbType.String);
-            para.Add("City", adminLoginResponse.City, DbType.String);
-            para.Add("Address", adminLoginResponse.Address, DbType.String);
-            para.Add("CompanyName", adminLoginResponse.CompanyName, DbType.String);
+            //para.Add("City", adminLoginResponse.City, DbType.String);
+            //para.Add("Address", adminLoginResponse.Address, DbType.String);
+            //para.Add("CompanyName", adminLoginResponse.CompanyName, DbType.String);
             var result = _dapper.Update<int>("ManageAdminMaster", para, CommandType.StoredProcedure);
             return result;
         }
